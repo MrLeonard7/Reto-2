@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Suelo
+  - Piso
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Suelo
   - Water
   - UI
   - 
@@ -40,4 +42,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Fondo
+    uniqueID: 3304109123
+    locked: 0
+  - name: Escenario
+    uniqueID: 3361529479
+    locked: 0
+  - name: Detalles Ecenario
+    uniqueID: 2515400733
+    locked: 0
+  - name: Personaje
+    uniqueID: 2765923419
+    locked: 0
+  - name: Enemigos
+    uniqueID: 601506521
+    locked: 0
+  - name: Trampas
+    uniqueID: 791893875
+    locked: 0
+  - name: Objetos
+    uniqueID: 2071915145
     locked: 0
