@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2b4f4aaded6c877479a17ce14a5c320b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Kroegbainder
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: bd55723f19505dd4ab7fe9ac9cc5047c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

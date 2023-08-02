@@ -8,22 +8,28 @@ public class PlayerController : MonoBehaviour
 
     [Header ("Movimiento")]
     public float moveSpeed;
+    private Quaternion characterRotation;
 
     [Header ("Salto")]
     public float jumpForce;
-    private bool doubleJump;
+    private int jumpsReaming;
+    public int maxJumps = 2;
+    public float bounceForce;
     
     [Header("Componentes")]
     public Rigidbody2D rb;
 
     [Header ("Animator")]
-    public Animator anim;
+    //public Animator anim;
     private SpriteRenderer sR;
 
     [Header("Grounded")]
     private bool isGrounded;
     public Transform groundCheckpoint;
-    public LayerMask ground; 
+    public LayerMask ground;
+
+    private Transform platform;
+    private Vector3 platPosition;
 
     public float knockBackLength, knockBackForce;
     private float knockBackCounter;
@@ -45,28 +51,21 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2 (moveSpeed * Input.GetAxis("Horizontal")
             , rb.velocity.y);
 
-            isGrounded = Physics2D.OverlapCircle(groundCheckpoint.position, .2f, ground); 
+            bool isWalking = Mathf.Abs(rb.velocity.x)> 0.1f;
+            
+            isGrounded = Physics2D.OverlapCircle(groundCheckpoint.position, .2f, ground);
 
             if (isGrounded)
             {
-                doubleJump = true;
+                jumpsReaming = maxJumps;
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if (jumpsReaming > 0 && Input.GetButtonDown("Jump"))
             {
-            
-                if(isGrounded)
-                {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                }
-                else
-                {
-                    if(doubleJump)
-                    {
-                        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                        doubleJump = false;
-                    }
-                }
+                //AudioManager.instance.PlaySFX(0);
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+
+                jumpsReaming--;
             }    
                
 
@@ -78,6 +77,7 @@ public class PlayerController : MonoBehaviour
             {
                 sR.flipX = false;
             }
+
         }
         else
         {
@@ -92,10 +92,13 @@ public class PlayerController : MonoBehaviour
 
             }
         }
+        
+        
 
         
-        anim.SetFloat("seMueve", Mathf.Abs(rb.velocity.x));
-        anim.SetBool("enSuelo", isGrounded);
+        //anim.SetFloat("seMueve", Mathf.Abs(rb.velocity.x));
+        //anim.SetBool("enSuelo", isGrounded);
+        
         
     }
     
@@ -104,5 +107,30 @@ public class PlayerController : MonoBehaviour
         knockBackCounter =  knockBackLength;
         rb.velocity = new Vector2(0f, knockBackForce);
 
+    }
+    public void Bounce()
+        {
+            rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+        }
+    
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            platform = other.transform;
+            
+            transform.SetParent(platform);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other) 
+    {
+        if (other.transform == platform)
+        {
+            platform = null;
+            transform.SetParent(null);
+            
+        }
+        
     }
 }

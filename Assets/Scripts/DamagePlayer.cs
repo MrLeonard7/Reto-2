@@ -20,6 +20,7 @@ public class DamagePlayer : MonoBehaviour
         if(other.tag == "Player")
         {
             PlayerHealthController.instance.DealDamage();
+            AudioManager.instance.PlaySFX(4);
         }
     }
 }

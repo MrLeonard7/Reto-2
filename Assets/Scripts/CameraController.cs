@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        transform.position = new Vector3(target.position.x, Mathf.Clamp(target.position.y, minH, maxH)
+        transform.position = new Vector3(target.position.x, Mathf.Clamp(target.position.y + 2, minH, maxH)
         ,transform.position.z);
             
         Vector2 amountToMove = new Vector2(transform.position.x - lastPos.x
